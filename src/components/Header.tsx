@@ -32,11 +32,6 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    handleLinkClick(e, sectionId);
-    setIsMenuOpen(false); // Fermer le menu après clic
-  };
-
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
     // Si on n'est pas sur la page d'accueil, rediriger d'abord

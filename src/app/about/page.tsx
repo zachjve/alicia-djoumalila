@@ -1,6 +1,7 @@
 "use client";
 
 import Header from '../../components/Header';
+import { ExternalLink } from 'lucide-react';
 
 export default function About() {
   return (
@@ -74,7 +75,17 @@ export default function About() {
             <div>
               <h3 className="text-lg font-thin text-gray-900 mb-4 tracking-wider" style={{ fontFamily: 'Didot, serif' }}>Agence</h3>
               <ul className="space-y-1 text-gray-600 text-sm">
-                <li className="font-medium">HOURRA MODELS</li>
+                <li className="font-medium">
+                  <a 
+                    href="https://www.hourra.net/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 hover:text-gray-900 transition-colors duration-200"
+                  >
+                    HOURRA MODELS
+                    <ExternalLink size={12} className="opacity-60" />
+                  </a>
+                </li>
                 <li>04 78 89 01 04</li>
                 <li>lyon@hourra.net</li>
                 <li>53 avenue maréchal Foch</li>
