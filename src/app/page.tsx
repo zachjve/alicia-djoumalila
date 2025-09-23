@@ -1,102 +1,157 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Header from '../components/Header';
+import { Mail, Phone, Instagram } from 'lucide-react';
+
+export default function Portfolio() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <Header />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <section className="h-screen relative flex items-center justify-center">
+        {/* Background Image - Mobile */}
+        <div className="absolute inset-0 md:hidden">
+          <img 
+            src="/pics/_DSC4150.jpg" 
+            alt="Alicia - Hero Mobile" 
+            className="w-full h-full object-cover"
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        
+        {/* Background Image - Web */}
+        <div className="absolute inset-0 hidden md:block">
+          <img 
+            src="/pics/2-sharpen.jpg" 
+            alt="Alicia - Hero Web" 
+            className="w-full h-full object-cover"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        </div>
+        
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/20"></div>
+        
+        {/* Content */}
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
+          <h1 className="text-6xl md:text-8xl font-thin tracking-wider mb-6" style={{ fontFamily: 'Didot, serif' }}>
+            ALICIA
+          </h1>
+          <p className="text-lg md:text-2xl font-light max-w-2xl mx-auto leading-relaxed">
+            Mannequin professionnel • Portfolio créatif • Art de la mode
+          </p>
+        </div>
+      </section>
+
+      {/* Portfolio Grid */}
+      <section id="portfolio" className="py-20 px-6">
+        <div className="w-full">
+          <h2 className="text-4xl md:text-6xl font-light text-center mb-16 tracking-wider" style={{ fontFamily: 'Didot, serif' }}>GALERIE</h2>
+          
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+            {/* Gallery photos */}
+            {[
+              '/pics/_DSC4007.jpg',
+              '/pics/13-sharpen-3.jpg',
+              '/pics/_DSC3584.jpg',
+              '/pics/IMG_9518.jpg',
+              '/pics/_DSC4039.jpg',
+              '/pics/22-sharpen-7.jpg',
+              '/pics/_DSC3406_DxO.jpg',
+              '/pics/lightX 2.PNG',
+              '/pics/_DSC4057.jpg',
+              '/pics/8-sharpen-18.jpg',
+              '/pics/_DSC3439.jpg',
+              '/pics/IMG_0036.JPG',
+              '/pics/_DSC4119.jpg',
+              '/pics/11-sharpen-11.jpg',
+              '/pics/_DSC3456.jpg',
+              '/pics/lightX.PNG',
+              '/pics/_DSC3985.jpg',
+              '/pics/15-652A2446.jpg',
+              '/pics/_DSC3589_DxO.jpg',
+              '/pics/IMG_0212.JPG',
+              '/pics/_DSC4085.jpg',
+              '/pics/13-sharpen-3 2.jpg',
+              '/pics/_DSC3978.jpg',
+              '/pics/22-sharpen-7 2.jpg',
+              '/pics/_DSC4013.jpg',
+              '/pics/lightX 3.PNG',
+              '/pics/_DSC4137.jpg',
+              '/pics/2-sharpen.jpg',
+              '/pics/_DSC4150.jpg'
+            ].map((imagePath, index) => (
+              <div key={index} className="break-inside-avoid mb-8 group cursor-pointer overflow-hidden">
+                <img 
+                  src={imagePath} 
+                  alt={`Alicia - Photo ${index + 1}`}
+                  className="w-full h-auto rounded-sm transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-light mb-12 tracking-wider text-black" style={{ fontFamily: 'Didot, serif' }}>CONTACT</h2>
+          <div className="max-w-md mx-auto space-y-8">
+            <div className="text-center">
+              <h3 className="text-xl font-light mb-6 text-black" style={{ fontFamily: 'Didot, serif' }}>Collaborations</h3>
+              <p className="text-black mb-6">
+                Ouverte aux projets créatifs et collaborations artistiques.
+              </p>
+              <div className="space-y-4 text-black">
+                <p className="flex items-center justify-center gap-3">
+                  <Mail size={18} className="text-black" />
+                  <a 
+                    href="mailto:djoumalilaa@gmail.com" 
+                    className="hover:text-gray-700 transition-colors text-black"
+                  >
+                    djoumalilaa@gmail.com
+                  </a>
+                </p>
+                <p className="flex items-center justify-center gap-3">
+                  <Phone size={18} className="text-black" />
+                  <a 
+                    href="tel:0781726665" 
+                    className="hover:text-gray-700 transition-colors text-black"
+                  >
+                    07 81 72 66 65
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div className="text-center">
+              <h3 className="text-xl font-light mb-6 text-black" style={{ fontFamily: 'Didot, serif' }}>Réseaux</h3>
+              <div className="space-y-4 text-black">
+                <p className="flex items-center justify-center gap-3">
+                  <Instagram size={18} className="text-black" />
+                  <a 
+                    href="https://instagram.com/_alicia_djm" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-700 transition-colors text-black"
+                  >
+                    @_alicia_djm
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-black text-xs" style={{ fontFamily: 'Didot, serif' }}>
+            Copyright © Tous droits réservés.
+          </p>
+        </div>
       </footer>
     </div>
   );
