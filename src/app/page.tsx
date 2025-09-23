@@ -46,7 +46,7 @@ export default function Portfolio() {
       {/* Portfolio Grid */}
       <section id="portfolio" className="py-20 px-6">
         <div className="w-full">
-          <h2 className="text-4xl md:text-6xl font-light text-center mb-16 tracking-wider" style={{ fontFamily: 'Didot, serif' }}>GALERIE</h2>
+          <h2 className="text-4xl md:text-6xl font-light text-center mb-16 tracking-wider text-black" style={{ fontFamily: 'Didot, serif' }}>GALERIE</h2>
           
           <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
             {/* Gallery photos */}
