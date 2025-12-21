@@ -54,13 +54,11 @@ export default function Portfolio() {
               '/pics/_DSC4007.jpg',
               '/pics/13-sharpen-3.jpg',
               '/pics/_DSC3584.jpg',
-              '/pics/IMG_9518.jpg',
               '/pics/_DSC4039.jpg',
               '/pics/22-sharpen-7.jpg',
               '/pics/_DSC3406_DxO.jpg',
               '/pics/lightX 2.PNG',
               '/pics/_DSC4057.jpg',
-              '/pics/8-sharpen-18.jpg',
               '/pics/_DSC3439.jpg',
               '/pics/IMG_0036.JPG',
               '/pics/_DSC4119.jpg',
@@ -79,7 +77,15 @@ export default function Portfolio() {
               '/pics/lightX 3.PNG',
               '/pics/_DSC4137.jpg',
               '/pics/2-sharpen.jpg',
-              '/pics/_DSC4150.jpg'
+              '/pics/_DSC4150.jpg',
+              '/pics/sharpen-11.jpg',
+              '/pics/sharpen-14.jpg',
+              '/pics/sharpen-22.jpg',
+              '/pics/sharpen-22 2.jpg',
+              '/pics/sharpen-24.jpg',
+              '/pics/sharpen-35.jpg',
+              '/pics/sharpen-40.jpg',
+              '/pics/IMG_1478.jpg'
             ].map((imagePath, index) => (
               <div key={index} className="break-inside-avoid mb-8 group cursor-pointer overflow-hidden">
                 <img 
