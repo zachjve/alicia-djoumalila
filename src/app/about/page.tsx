@@ -25,7 +25,7 @@ export default function About() {
               <div className="relative">
                 <div className="aspect-[3/4] bg-gray-100 overflow-hidden shadow-2xl">
                   <img 
-                    src="/pics/_DSC3985.jpg" 
+                    src="/pics/IMG_1478.jpg" 
                     alt="Alicia - Portrait artistique" 
                     className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
@@ -36,9 +36,9 @@ export default function About() {
               <div className="space-y-8">
                 <div className="space-y-6 text-gray-700 leading-relaxed">
                   <p className="text-lg sm:text-xl font-light">
-                    Passionnée par la mode et la photographie, je collabore avec des créateurs et photographes 
-                    pour donner vie à leurs projets. J'aime explorer différentes esthétiques et créer des images 
-                    qui transmettent des émotions.
+                    La mode et la photographie sont mon terrain. Je collabore avec créateurs et photographes 
+                    pour donner corps à leurs projets — une atmosphère, une intention, une image qui reste. 
+                    J’aime les partis pris nets et les émotions qui ne s’annoncent pas.
                   </p>
                 </div>
               </div>
@@ -77,6 +77,29 @@ export default function About() {
               <ul className="space-y-1 text-gray-600 text-sm">
                 <li className="font-medium">
                   <a 
+                    href="https://www.enjoy-models.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 hover:text-gray-900 transition-colors duration-200"
+                  >
+                    ENJOY MODELS
+                    <ExternalLink size={12} className="opacity-60" />
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+33493721000" className="hover:text-gray-900 transition-colors duration-200">
+                    04 93 72 10 00
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:booking@enjoy-models.net" className="hover:text-gray-900 transition-colors duration-200">
+                    booking@enjoy-models.net
+                  </a>
+                </li>
+                <li>27 avenue Jean Médecin</li>
+                <li>06000 Nice</li>
+                <li className="font-medium pt-3">
+                  <a 
                     href="https://www.hourra.net/" 
                     target="_blank" 
                     rel="noopener noreferrer"
@@ -86,8 +109,16 @@ export default function About() {
                     <ExternalLink size={12} className="opacity-60" />
                   </a>
                 </li>
-                <li>04 78 89 01 04</li>
-                <li>lyon@hourra.net</li>
+                <li>
+                  <a href="tel:+33478890104" className="hover:text-gray-900 transition-colors duration-200">
+                    04 78 89 01 04
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:lyon@hourra.net" className="hover:text-gray-900 transition-colors duration-200">
+                    lyon@hourra.net
+                  </a>
+                </li>
                 <li>53 avenue maréchal Foch</li>
                 <li>Lyon</li>
               </ul>
