@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Bodoni_Moda, Tinos } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import {
@@ -9,9 +9,20 @@ import {
 } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
-const inter = Inter({
-  variable: "--font-inter",
+const serif = Tinos({
+  variable: "--font-tinos",
   subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const didone = Bodoni_Moda({
+  variable: "--font-bodoni",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 const SITE_URL = "https://alicia-portfolio.com";
@@ -90,7 +101,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale}>
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${serif.variable} ${didone.variable} antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

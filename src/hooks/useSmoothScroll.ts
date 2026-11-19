@@ -1,24 +1,26 @@
-import { useCallback } from 'react';
+import { useCallback } from "react";
 
 export const useSmoothScroll = () => {
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
+        behavior: "smooth",
+        block: "start",
       });
     }
   }, []);
 
-  const handleLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault();
-    scrollToSection(sectionId);
-  }, [scrollToSection]);
+  const handleLinkClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+      e.preventDefault();
+      scrollToSection(sectionId);
+    },
+    [scrollToSection],
+  );
 
   return {
     scrollToSection,
     handleLinkClick,
   };
 };
-

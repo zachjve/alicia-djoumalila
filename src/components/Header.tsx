@@ -6,6 +6,14 @@ import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
 
+const SECTIONS = ["profile", "portfolio", "booking", "about"] as const;
+const NAV_LABELS = {
+  profile: "profile",
+  portfolio: "gallery",
+  booking: "booking",
+  about: "about",
+} as const;
+
 function LanguageSwitcher({
   className,
   onSelect,
@@ -18,9 +26,9 @@ function LanguageSwitcher({
   const router = useRouter();
 
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`flex items-center gap-1 md:gap-2 ${className}`}>
       {routing.locales.map((loc, i) => (
-        <span key={loc} className="flex items-center gap-2">
+        <span key={loc} className="flex items-center gap-1 md:gap-2">
           {i > 0 && <span className="opacity-40">|</span>}
           <button
             type="button"
@@ -28,10 +36,8 @@ function LanguageSwitcher({
               router.replace(pathname, { locale: loc });
               onSelect?.();
             }}
-            className={`text-sm tracking-wider uppercase transition-opacity ${
-              locale === loc
-                ? "opacity-100 font-medium"
-                : "opacity-50 hover:opacity-80"
+            className={`uppercase transition-opacity ${
+              locale === loc ? "opacity-100" : "opacity-50 hover:opacity-80"
             }`}
             aria-current={locale === loc ? "true" : undefined}
           >
@@ -43,158 +49,87 @@ function LanguageSwitcher({
   );
 }
 
-export default function Header() {
-  const t = useTranslations("nav");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const { handleLinkClick } = useSmoothScroll();
-  const pathname = usePathname();
-  const router = useRouter();
-  const isHomePage = pathname === "/";
+function useActiveSection() {
+  const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isHomePage) {
-      setIsScrolled(true);
-      return;
-    }
-
-    const handleScroll = () => {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      setIsScrolled(scrollTop > 50);
+    const update = () => {
+      const offset = 120;
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4;
+      if (atBottom) {
+        setActive(SECTIONS[SECTIONS.length - 1]);
+        return;
+      }
+      let current: string | null = null;
+      for (const id of SECTIONS) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= offset) current = id;
+      }
+      setActive(current);
     };
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+  return active;
+}
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHomePage]);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleAnchorClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    sectionId: string,
-  ) => {
-    e.preventDefault();
-    if (!isHomePage) {
-      router.push(`/#${sectionId}`);
-    } else {
-      handleLinkClick(e, sectionId);
-    }
-  };
-
-  const navLinkClass = `text-sm tracking-wider transition-all duration-300 cursor-pointer ${
-    isScrolled || isMenuOpen
-      ? "text-zinc-300 hover:text-white"
-      : "text-white hover:text-gray-200"
-  }`;
+export default function Header() {
+  const t = useTranslations("nav");
+  const { handleLinkClick } = useSmoothScroll();
+  const active = useActiveSection();
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || isMenuOpen
-          ? "bg-[#0e0c0a]/90 backdrop-blur-sm"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="max-w-7xl mx-auto px-6 py-2">
-        <div className="flex justify-between items-center">
-          <Link
-            href="/"
-            className="text-xl font-light tracking-wider cursor-pointer hover:opacity-70 transition-all duration-300 text-white"
-            style={{ fontFamily: "Didot, serif" }}
-          >
-            Alicia Djoumalila
-          </Link>
-
-          <div className="hidden md:flex items-center space-x-6">
-            <Link
-              href="/#portfolio"
-              className={navLinkClass}
-              onClick={(e) => handleAnchorClick(e, "portfolio")}
-            >
-              {t("gallery")}
-            </Link>
-            <Link href="/about" className={navLinkClass}>
-              {t("about")}
-            </Link>
-            <Link
-              href="/#contact"
-              className={navLinkClass}
-              onClick={(e) => handleAnchorClick(e, "contact")}
-            >
-              {t("contact")}
-            </Link>
-            <LanguageSwitcher
-              className={
-                isScrolled || isMenuOpen ? "text-zinc-300" : "text-white"
-              }
-            />
-          </div>
-
-          <button
-            type="button"
-            className="md:hidden relative flex justify-center items-center w-8 h-8"
-            onClick={toggleMenu}
-            aria-label={t("toggleMenu")}
-          >
-            <span
-              className={`absolute w-6 h-px transition-all duration-300 ${
-                isScrolled || isMenuOpen ? "bg-zinc-300" : "bg-white"
-              } ${isMenuOpen ? "rotate-45" : "-translate-y-1"}`}
-            />
-            <span
-              className={`absolute w-6 h-px transition-all duration-300 ${
-                isScrolled || isMenuOpen ? "bg-zinc-300" : "bg-white"
-              } ${isMenuOpen ? "-rotate-45" : "translate-y-1"}`}
-            />
-          </button>
-        </div>
-
-        <div
-          className={`md:hidden transition-all duration-300 overflow-hidden ${
-            isMenuOpen ? "h-screen opacity-100" : "h-0 opacity-0"
-          }`}
+    <header className="sticky top-0 z-50 bg-paper/95 backdrop-blur-sm text-ink border-b-[0.5px] border-rule">
+      <nav className="w-full h-12 px-4 md:px-8 flex items-center justify-between gap-3">
+        <Link
+          href="/"
+          aria-label="Alicia Djoumalila"
+          className="shrink-0 transition-opacity hover:opacity-70"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
         >
-          <div className="py-4 space-y-4 flex flex-col items-center justify-center h-full">
-            <Link
-              href="/#portfolio"
-              className="block text-2xl text-zinc-300 hover:text-white transition-colors cursor-pointer"
-              style={{ fontFamily: "Didot, serif" }}
-              onClick={(e) => {
-                handleAnchorClick(e, "portfolio");
-                setIsMenuOpen(false);
-              }}
-            >
-              {t("gallery")}
-            </Link>
-            <Link
-              href="/about"
-              className="block text-2xl text-zinc-300 hover:text-white transition-colors cursor-pointer"
-              style={{ fontFamily: "Didot, serif" }}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {t("about")}
-            </Link>
-            <Link
-              href="/#contact"
-              className="block text-2xl text-zinc-300 hover:text-white transition-colors cursor-pointer"
-              style={{ fontFamily: "Didot, serif" }}
-              onClick={(e) => {
-                handleAnchorClick(e, "contact");
-                setIsMenuOpen(false);
-              }}
-            >
-              {t("contact")}
-            </Link>
-            <LanguageSwitcher
-              className="text-zinc-300 pt-4"
-              onSelect={() => setIsMenuOpen(false)}
-            />
-          </div>
+          <span className="font-serif text-lg md:text-2xl leading-none tracking-[0.02em]">
+            A<span className="italic">D</span>
+          </span>
+        </Link>
+
+        <div className="flex items-center gap-3 md:gap-12">
+          <ul className="flex items-center gap-x-3 md:gap-x-10">
+            {SECTIONS.map((id) => {
+              const isActive = active === id;
+              return (
+                <li key={id}>
+                  <Link
+                    href={`/#${id}`}
+                    aria-current={isActive ? "location" : undefined}
+                    className={`relative block py-1 font-mono text-[9px] md:text-[11px] uppercase tracking-[0.12em] md:tracking-[0.25em] whitespace-nowrap transition-opacity duration-300 ${
+                      isActive ? "opacity-100" : "opacity-70 hover:opacity-100"
+                    }`}
+                    onClick={(e) => handleLinkClick(e, id)}
+                  >
+                    {t(NAV_LABELS[id])}
+                    <span
+                      aria-hidden
+                      className={`absolute left-0 right-0 -bottom-0.5 h-px bg-current origin-left transition-transform duration-300 ${
+                        isActive ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <LanguageSwitcher className="font-mono text-[9px] md:text-[11px] tracking-[0.12em] md:tracking-[0.25em] whitespace-nowrap" />
         </div>
       </nav>
     </header>
